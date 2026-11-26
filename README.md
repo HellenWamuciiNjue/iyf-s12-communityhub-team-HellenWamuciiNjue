@@ -1,149 +1,197 @@
-# Student Learning and Revision Platform
-### Complete Project Manual & Engineering Reference Guide
+# MtaaConnect
 
-Welcome to the central repository for the Student Learning and Revision Platform. This document serves as the absolute source of truth for our architecture, integration protocols, design standards, and workflows. 
+**MtaaConnect** is a neighbourhood community platform where residents can connect with each other, share news, ask questions, post local issues, recommend services, and advertise what they offer.
 
-**Read this manual thoroughly before writing code or opening a Pull Request.**
+Examples of what people can do on MtaaConnect:
 
----
+- Ask "Does anyone know a reliable plumber near Bypass?"
+- Share news and notices with their neighbourhood
+- Report a local issue (lost pet, broken streetlight, security alert)
+- Advertise a skill or service (tailoring, tutoring, deliveries)
+- Build a profile that lists their neighbourhood, estate, skills and services
 
-## 📅 Hard Milestone Deadline
-*   **Final Integration & Internal Review Cutoff:** **November 10, 2026 at 6:00 PM**
-*   **Team Progress Meeting:** **November 10, 2026 (7pm)**
-*   All individual feature branches must be submitted via Pull Requests by 6:00 PM to freeze the code for our review and discussion.
-
----
-
-## 👥 1. Team Directory & Role Responsibilities
-
-| No. | Full Name | Team Role | Core System Deliverables |
-| :--- | :--- | :--- | :--- |
-| **1** | Hellen Wamucii Njue | Team Leader & Integrator | Repository management, system architecture layout, code reviews, and pulling branches into `main`. |
-| **2** | Yugi Michael | Homepage Developer | `index.html` structure, hero banners, site orientation layout, and core navigation link maps. |
-| **3** | Florence Gitau | Subjects Page Developer | `subjects.html` layout, grid matrices for course selection, and subtopic list components. |
-| **4** | Stephen Githaiga Muriu | Notes Developer | `notes.html` text layouts, print-friendly stylesheets, and scroll-to-topic elements. |
-| **5** | Kelvin Shema | Quiz Interface Developer | `quizzes.html` list view and `take-quiz.html` layout (question cards, dynamic choice containers). |
-| **6** | Aladinee Sawe | Scoring/Results Developer | `results.html` layouts, scoring visualizers, and conditional feedback elements. |
-| **7** | Chukwuma Nicodemus Ndukwu | UI/CSS Developer | Global design token definition, typography, component styling presets, and responsiveness rules. |
-| **8** | Lynnet Njoki | JavaScript & Data Developer | Core quiz logic engines, handling score computations, arrays, and persistent states. |
-| **9** | Nicodemus Muriuki | Educational Content Officer | Copywriting notes content, sourcing factual test questions, and validating curriculum accuracy. |
-| **10** | Isaac Okach | Tester & Documentation | Link checking, boundary condition logic verification, manual test planning, and log maintenance. |
+This README is the source of truth for the team: what we are building, who owns what, how the code is organised, and how to contribute.
 
 ---
 
-## 🤝 2. Mandatory Synchronization Contracts (Names & Classes)
+## 1. Features
 
-To prevent code from breaking when merged into `main`, specific developers must coordinate before writing code. If you do not follow these naming conventions, your branch will be rejected during review.
-
-### 🌐 A. Global UI Framework Alignment (Chukwuma, Yugi, Florence, Stephen, Kelvin, Aladinee)
-**Chukwuma Nicodemus (CSS Developer)** must publish standard classes in `css/style.css`. Every page developer must use these exact classes to keep layouts unified:
-*   **Page Container wrappers:** Layout blocks must wrap inside `.app-container`.
-*   **Navigation elements:** Main links must utilize `.nav-bar`, `.nav-item`, and `.nav-brand`.
-*   **Interactive Controls:** Every action item must inherit standard layout rules from `.btn`, `.btn-primary`, or `.btn-secondary`.
-*   **Display Units:** Information sections must reside inside `.card`, `.card-header`, and `.card-body`.
-
-### 🧠 B. Core Interactive Component ID Mapping (Kelvin, Aladinee, Lynnet)
-**Kelvin (Quiz UI)**, **Aladinee (Results UI)**, and **Lynnet (JavaScript Engine)** must link their HTML structure and script behaviors using these exact structural IDs:
-
-#### 📝 In `take-quiz.html` (Kelvin & Lynnet Alignment):
-*   **Question Text Area:** The text container element must be strictly defined as `<h3 id="question-text"></h3>`.
-*   **Choice Options Container:** The wrapper block for dynamic answer buttons must be defined as `<div id="choices-container"></div>`.
-*   **Pagination Elements:** The next-step control button must be set as `<button id="next-question-btn"></button>`.
-*   **Submission Action Elements:** The absolute form submission trigger button must be set as `<button id="submit-quiz-btn"></button>`.
-
-#### 📊 In `results.html` (Aladinee & Lynnet Alignment):
-*   **User Raw Score Counter:** The final correct answer counter must be styled as `<span id="user-score"></span>`.
-*   **Total Item Metric:** The overall test size metric container must be defined as `<span id="total-questions"></span>`.
-*   **Automated Review Panel:** The area handling customized study hints and feedback text must look like `<div id="feedback-suggestions"></div>`.
+| Feature | Description | Status |
+|---|---|---|
+| Posts | Create, read, update and delete community posts (news, questions, issues, adverts), grouped by neighbourhood | Posts API merged (PR #18) |
+| User profiles | Name, email, neighbourhood, estate, skills, services and contact info, with protected GET/PUT endpoints | Profile API merged (PR #19) |
+| Authentication | Register, login, JWT tokens and route protection | JWT middleware merged; register/login routes in progress (Slice 4) |
+| Comments | Residents can comment on posts | Planned (Slice 9) |
+| Frontend pages | Layout, navigation, responsive design, register/login, profile page | In progress (Slices 1, 2, 3, 5) |
 
 ---
 
-## 📂 3. Baseline Engineering Workspace Architecture
+## 2. Project Slices and Owners
 
-Keep all file positions and system names organized according to this structural layout map:
+Work is split into numbered slices, each tracked as a GitHub Issue. **The Issues tab is the live source of truth.** Each issue lists its Owner, Reviewer and Backup.
 
-```text
-student-learning-platform/
-├── css/
-│   └── style.css            # Managed by Chukwuma: Central styling patterns
-├── data/
-│   └── questions.js         # Managed by Nicodemus M. & Lynnet: Structured question arrays
-├── js/
-│   └── script.js            # Managed by Lynnet: Application behavior and score logic engines
-├── index.html               # Managed by Yugi: Primary application portal
-├── subjects.html            # Managed by Florence: Topic catalogs and course streams
-├── notes.html               # Managed by Stephen: Text presentations of study materials
-├── quizzes.html             # Managed by Kelvin: Practice module directories
-├── take-quiz.html           # Managed by Kelvin: Interactive text card assessment arrays
-├── results.html             # Managed by Aladinee: Performance logs and evaluation loops
-├── .gitignore               # Excludes tracking of editor files (.vscode/), logs, and OS caches
-├── LICENSE                  # Open source repository distribution license
-└── README.md                # This document
+| Slice | Issue | Scope | Owner | Reviewer | Backup |
+|---|---|---|---|---|---|
+| 1 | #8 | Project setup, layout and navigation (frontend) | Hellen Wamucii Njue (@HellenWamuciiNjue) | Florence Gitau (@gitau0076-cpu) | Yugi Ochieng Michael (@michael-yugi) |
+| 2 | #9 | Responsive design and shared UI components | Florence Gitau (@gitau0076-cpu) | Stephen Githaiga Muriu (@Stephen-Dev254) | Lynnet Njoki (@lynnet-njangiru) |
+| 3 | #10 | Register / login UI and protected routes | Yugi Ochieng Michael (@michael-yugi) | Hellen Wamucii Njue (@HellenWamuciiNjue) | Florence Gitau (@gitau0076-cpu) |
+| 4 | #11 | Auth API: register, login, JWT, middleware | Nicodemus Muriuki (@RealNicdee) | Chukwuma Ndukwu (@chukwuma-n) | Kevin Shema (@ShemaKevin970) |
+| 5 | #12 | Profile page UI | Stephen Githaiga Muriu (@Stephen-Dev254) | Aladin Sawe (@aladineesawe-GENKEMBOI) | Isaac Okach (@isaacokach) |
+| 9 | #15 | Comments UI | Aladin Sawe (@aladineesawe-GENKEMBOI) | Yugi Ochieng Michael (@michael-yugi) | Lynnet Njoki (@lynnet-njangiru) |
+| 11 | #16 | Database connection, env setup, deployment | Nicodemus Muriuki (@RealNicdee) | Hellen Wamucii Njue (@HellenWamuciiNjue) | Florence Gitau (@gitau0076-cpu) |
+| 12 | #17 | Tests and API documentation | Hellen Wamucii Njue (@HellenWamuciiNjue) | Yugi Ochieng Michael (@michael-yugi) | Aladin Sawe (@aladineesawe-GENKEMBOI) |
+
+Completed slices: Posts API (#14, by Kevin Shema), Profile API (by Chukwuma Ndukwu).
+
+**Team leader and integrator:** Hellen Wamucii Njue (@HellenWamuciiNjue) manages the repository, reviews and merges pull requests, and keeps the pieces working together.
+
+---
+
+## 3. Tech Stack
+
+- **Frontend:** HTML, CSS and JavaScript
+- **Backend:** Node.js and Express
+- **Database:** MongoDB Atlas, using Mongoose
+- **Authentication:** JSON Web Tokens (JWT) with bcrypt password hashing
+- **Client-side storage:** `localStorage` (the Posts API stores posts under the key `mtaaconnect_posts`)
+
+---
+
+## 4. Repository Structure
+
+```
+iyf-s12-communityhub-team-HellenWamuciiNjue/
+├── backend/
+│   ├── config/
+│   │   └── database.js          # MongoDB connection
+│   ├── controllers/
+│   │   └── profileController.js # getProfile, updateProfile
+│   ├── middleware/
+│   │   └── authMiddleware.js    # JWT "protect" middleware
+│   ├── models/
+│   │   └── User.js              # User schema (hashed password)
+│   ├── routes/
+│   │   └── profileRoutes.js     # Profile routes
+│   ├── .gitignore               # Ignores .env and node_modules/
+│   ├── package.json
+│   └── server.js                # Express entry point
+├── post.js                      # Posts API (CRUD on localStorage)
+├── (frontend pages and css/js folders: see note below)
+├── LICENSE
+└── README.md
 ```
 
+> **Team note:** the frontend files are still being set up. Update this tree as pages and folders are added, and move `post.js` into a `js/` folder if the team agrees.
+
 ---
 
-## 🔧 4. Step-by-Step Developer Git Manual
+## 5. Key Conventions
 
-Follow these exact local terminal steps inside your Git Bash window to manage your updates safely:
+### Posts API (`post.js`)
 
-### Step 1: Initial Setup
-Clone the baseline files down and move into the application root:
+Exposed globally as `window.PostsAPI`:
+
+`getPosts()`, `getPostById(id)`, `createPost({ title, content, neighborhood, authorId, authorName })`, `updatePost(id, updates, currentUserId)`, `deletePost(id, currentUserId)`, `seedPostsIfEmpty()`
+
+Only a post's author can edit or delete it.
+
+### Profile API
+
+All profile endpoints are **protected**: requests must send `Authorization: Bearer <token>`.
+
+- `GET` returns the logged-in user's profile (the password is never returned).
+- `PUT` updates only these fields: `name`, `email`, `neighborhood`, `estate`, `skills`, `services`, `contactInfo`.
+
+### Security rules
+
+- **Never commit secrets.** `.env` and `node_modules/` must stay out of Git.
+- Passwords are hashed with bcrypt before saving. Any future "change password" feature must go through `save()`, not `findByIdAndUpdate`.
+
+---
+
+## 6. Running the Backend Locally
+
+1. Clone the repository and go to the backend folder:
+
+   ```bash
+   git clone https://github.com/HellenWamuciiNjue/iyf-s12-communityhub-team-HellenWamuciiNjue.git
+   cd iyf-s12-communityhub-team-HellenWamuciiNjue/backend
+   npm install
+   ```
+
+2. Create a file called `.env` inside `backend/`. **Ask the team leader or Chukwuma privately for the values; never share them in the repo or a group chat.**
+
+   ```
+   MONGODB_URI=<your MongoDB Atlas connection string>
+   JWT_SECRET=<a long random secret>
+   ```
+
+3. Start the server:
+
+   ```bash
+   node server.js
+   ```
+
+---
+
+## 7. Git Workflow (mandatory for everyone)
+
+The `main` branch is protected. **Nobody pushes directly to `main`.** Every change goes through a Pull Request that needs at least **1 approving review** before it can be merged.
+
+**Step 1: Clone and open the project**
+
 ```bash
-git clone https://github.com
-cd student-learning-platform
-```
-
-### Step 2: Open in VS Code
-Launch your code workspace to edit files visually:
-```bash
+git clone https://github.com/HellenWamuciiNjue/iyf-s12-communityhub-team-HellenWamuciiNjue.git
+cd iyf-s12-communityhub-team-HellenWamuciiNjue
 code .
 ```
 
-### Step 3: Branching (Mandatory)
-Before changing any code, break out into your dedicated feature branch. Replace `your-role` with your specific duty assignment (e.g., `feature-homepage` or `feature-notes`):
+**Step 2: Create your feature branch**
+
 ```bash
-git checkout -b feature-your-role
+git checkout -b feature-your-slice-name
 ```
 
-### Step 4: Staging and Saving Work Locally
-Save your localized updates to your tracking index regularly:
+**Step 3: Save your work**
+
 ```bash
 git add .
-git commit -m "Provide a clear description of the specific features added"
+git commit -m "Describe clearly what you added"
 ```
 
-### Step 5: Pushing to Remote Repository
-Push your completed development branch up to the remote repository:
+**Step 4: Push your branch**
+
 ```bash
-git push origin feature-your-role
+git push origin feature-your-slice-name
 ```
 
----
+**Step 5: Open a Pull Request on GitHub**
 
-## ❓ 5. Frequently Asked Engineering Questions (FAQ)
+- Write a clear title and description.
+- Write `Closes #<issue number>` (for example `Closes #11`) so the issue closes automatically when the PR is merged.
+- Request a review from the reviewer named on the issue.
 
-#### Q: Can I push code directly onto the `main` branch?
-**No.** Direct pushes to the `main` branch are restricted. If you bypass this or run destructive push overrides, you run the risk of breaking our baseline tracking files. All updates must come in via Pull Requests.
+**If your branch is out of date or has conflicts:**
 
-#### Q: How do I handle site navigation across different pages?
-All global links must use straight root paths. **Yugi Michael** will implement a uniform navbar template that everyone must copy into the top section of their respective HTML sheets:
-*   Home Link: `index.html`
-*   Subjects Link: `subjects.html`
-*   Notes Link: `notes.html`
-*   Quizzes Directory Link: `quizzes.html`
-
-#### Q: Where should the quiz results data be stored?
-Since this is a client-side architecture without an external database, the JavaScript engines will read and write active test sessions directly into the browser's native **`localStorage`**. 
-*   **Lynnet** will write scores to storage upon question validation.
-*   **Aladinee** will fetch those exact metrics from storage on load to populate the summary displays inside `results.html`.
-
-#### Q: What happens if I encounter code conflicts during my branch push?
-If a notification displays that your branch is out of sync, update your local branch history against the master branch using these terminal command flags:
 ```bash
 git checkout main
 git pull origin main
-git checkout feature-your-role
+git checkout feature-your-slice-name
 git merge main
 ```
-Fix any syntax overlapping markers inside your text editor workspace, re-stage files, save your commit, and push your branch up again.
+
+Fix any conflict markers (`<<<<<<<`, `=======`, `>>>>>>>`) in your editor, then `git add .`, commit, and push again.
+
+---
+
+## 8. Team Communication
+
+- Comment on the issue you are working on so everyone can see who is active.
+- If you are blocked, say so early and tag the team leader or the issue's Backup person.
+- Push unfinished work to your branch regularly so others can help.
+
+---
+
+## 9. License
+
+This project is released under the MIT License. See the `LICENSE` file.
